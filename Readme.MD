@@ -1,52 +1,93 @@
-# CreditWise - Loan Approval Prediction System
+# 💼 CreditWise Loan Approval System
 
-A machine learning web app that predicts whether a loan application will be approved or rejected, based on applicant details such as income, credit score, employment status, and property area. Four classification algorithms were trained and compared, with the pipeline deployed using Streamlit.
+CreditWise is a Streamlit web app that predicts whether a loan application should be approved or rejected. It uses applicant, loan, and property details, then runs the input through pre-trained machine learning models to return a prediction and confidence score.
 
 Live app: https://loan-classifier.streamlit.app/
 
-## Problem Statement
+## 🔍 What This Project Does
 
-Banks and NBFCs need a quick, consistent way to screen loan applications before manual underwriting. This project builds a binary classifier that takes applicant and loan details as input and predicts approval status (Yes/No) with a confidence score.
+The app helps simulate a fast loan pre-screening workflow for banks and NBFCs. A user enters financial and profile information such as income, credit score, debt-to-income ratio, employment status, loan purpose, and property area. The app then predicts the approval outcome with one of four trained models.
 
-## Dataset
+## ✨ Main Features
 
-`loan_approval_data.csv` contains 1000 applicant records covering demographic details (age, gender, marital status, dependents, education), financial details (income, savings, existing loans, DTI ratio, credit score), loan details (amount, term, purpose, collateral value), employment details, and property area. Target: Loan_Approved (Yes/No).
+- 📝 Interactive Streamlit form for loan-application inputs.
+- 🧠 Model selector for Decision Tree, Logistic Regression, Gaussian Naive Bayes, and K-Nearest Neighbors.
+- ♻️ Reuses saved encoders, scaler, and feature order from the training pipeline.
+- 📊 Shows the predicted class and confidence score.
+- 📈 Expands to display approval and rejection probabilities.
 
-Missing values were imputed using mean/median/mode. Categorical variables were encoded using Label Encoding (binary/ordinal fields) and One-Hot Encoding (nominal fields with multiple categories).
+## 📁 Project Structure
 
-## Feature Engineering
+- `app.py` - Streamlit application entrypoint.
+- `notebooks/credit_wise.ipynb` - data cleaning, EDA, feature engineering, training, and evaluation.
+- `data/loan_approval_data.csv` - training dataset.
+- `models/` - saved models and preprocessing artifacts.
+- `images/` - project images and supporting visuals.
 
-Three derived features were added: log-transformed applicant income (`np.log1p`), squared credit score, and squared DTI ratio, to capture non-linear effects and reduce skew. The original Credit_Score and DTI_Ratio columns were dropped in favor of these.
+## 🗃️ Dataset Overview
 
-## Models Used
+The dataset contains applicant-level records with demographic, financial, employment, and loan-related attributes. The target variable is loan approval status, stored as `Yes` or `No`.
 
-Logistic Regression, Gaussian Naive Bayes, K-Nearest Neighbors, and Decision Tree were trained on the same scaled feature set (StandardScaler) and evaluated on a held-out test set.
+The training pipeline handled missing values with standard imputation strategies and encoded categorical variables using label encoding for binary or ordinal fields and one-hot encoding for nominal fields.
 
-### Model Comparison
+## 🛠️ Feature Engineering
 
-| Model | Precision | Recall | F1-Score | Accuracy |
-|---|---|---|---|---|
-| Decision Tree | 0.92 | 0.92 | 0.92 | 0.92 |
-| Logistic Regression | 0.87 | 0.87 | 0.87 | 0.87 |
-| Gaussian Naive Bayes | 0.86 | 0.86 | 0.86 | 0.86 |
-| K-Nearest Neighbors | 0.74 | 0.75 | 0.74 | 0.75 |
+The model pipeline uses engineered features to improve prediction quality:
 
-(weighted averages across both classes)
+- `Applicant_Income_log` using `np.log1p`.
+- `Credit_Score_sq` to capture non-linear credit score effects.
+- `DTI_Ratio_sq` to capture non-linear debt burden effects.
 
-Decision Tree performed best overall and is the default model in the app, with 0.92 accuracy and 0.92 recall on the approved class — well ahead of the other three. This matters here since missing a genuinely approvable applicant is a more costly mistake than a false alarm. Logistic Regression and Naive Bayes were close to each other in the high-80s, while KNN lagged behind all three, likely due to the imbalanced class distribution affecting distance-based voting.
+The final input vector is reordered to match the saved training feature list before prediction.
 
-## Tech Stack
+## 🤖 Models
 
-Python, Pandas, NumPy, Scikit-learn, Streamlit, Joblib
+The notebook trains and evaluates four classification models on the same feature set:
 
-## How It Works
+- Decision Tree
+- Logistic Regression
+- Gaussian Naive Bayes
+- K-Nearest Neighbors
 
-The user fills in applicant details through the form. Categorical inputs are transformed using the same Label Encoder and One-Hot Encoder fitted during training, and engineered features are recomputed from raw inputs. The final feature vector is reordered to match the training column order, scaled using the saved StandardScaler, and passed to the selected model, which returns a prediction and confidence score.
+Decision Tree is the strongest performer in the current pipeline and is a good default choice for the app.
 
-The notebook (`credit_wise.ipynb`) contains the full pipeline: cleaning, EDA, encoding, feature engineering, training, and evaluation. The trained models, encoders, scaler, and column order are saved with joblib at the end of the notebook, and the app loads these directly instead of retraining on every run.
+## ⚙️ Tech Stack
 
+Python, Streamlit, Pandas, NumPy, Scikit-learn, Joblib
 
-# Author
+## 🚀 How To Run Locally
+
+1. Create and activate a Python environment.
+2. Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Start the app:
+
+```bash
+streamlit run app.py
+```
+
+4. Open the local URL shown in the terminal.
+
+## 🧩 How It Works
+
+When you submit the form, the app:
+
+1. Encodes categorical fields using the saved encoders.
+2. Recomputes engineered numeric features from raw inputs.
+3. Aligns the final dataframe to the training feature order.
+4. Scales the input where required.
+5. Sends the data to the selected model and displays the result.
+
+## 📝 Notes
+
+- The app uses saved artifacts from the `models/` directory instead of retraining on every run.
+- If you update the training pipeline, regenerate the saved models and feature metadata so the app stays aligned.
+
+## 👤 Author
 
 Ankur Gangwar
 - LinkedIn: https://www.linkedin.com/in/ankur-gangwar/
