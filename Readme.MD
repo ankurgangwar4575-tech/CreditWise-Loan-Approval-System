@@ -1,28 +1,28 @@
 # 💼 CreditWise Loan Approval System
 
-CreditWise is a Streamlit web app that predicts whether a loan application should be approved or rejected. It uses applicant, loan, and property details, then runs the input through pre-trained machine learning models to return a prediction and confidence score.
+CreditWise is a Streamlit web app that predicts whether a loan application should be approved or rejected. It uses applicant, loan, and property details, then runs the input through pre-trained machine learning models to return a prediction and confidence score
 
 Live app: https://loan-classifier.streamlit.app/
 
 ## 🔍 What This Project Does
 
-The app helps simulate a fast loan pre-screening workflow for banks and NBFCs. A user enters financial and profile information such as income, credit score, debt-to-income ratio, employment status, loan purpose, and property area. The app then predicts the approval outcome with one of four trained models.
+The app helps simulate a fast loan pre-screening workflow for banks and NBFCs. A user enters financial and profile information such as income, credit score, debt-to-income ratio, employment status, loan purpose, and property area. The app then predicts the approval outcome with one of four trained models
 
 ## ✨ Main Features
 
 - 📝 Interactive Streamlit form for loan-application inputs.
-- 🧠 Model selector for Decision Tree, Logistic Regression, Gaussian Naive Bayes, and K-Nearest Neighbors.
-- ♻️ Reuses saved encoders, scaler, and feature order from the training pipeline.
+- 🧠 Model selector for Decision Tree, Logistic Regression, Gaussian Naive Bayes, and K-Nearest Neighbors
+- ♻️ Reuses saved encoders, scaler, and feature order from the training pipeline
 - 📊 Shows the predicted class and confidence score.
-- 📈 Expands to display approval and rejection probabilities.
+- 📈 Expands to display approval and rejection probabilities
 
 ## 📁 Project Structure
 
 - `app.py` - Streamlit application entrypoint.
-- `notebooks/credit_wise.ipynb` - data cleaning, EDA, feature engineering, training, and evaluation.
-- `data/loan_approval_data.csv` - training dataset.
-- `models/` - saved models and preprocessing artifacts.
-- `images/` - project images and supporting visuals.
+- `notebooks/credit_wise.ipynb` - data cleaning, EDA, feature engineering, training, and evaluation
+- `data/loan_approval_data.csv` - training dataset
+- `models/` - saved models and preprocessing artifacts
+- `images/` - project images and supporting visuals
 
 ## 🗃️ Dataset Overview
 
