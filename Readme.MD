@@ -26,19 +26,19 @@ The app helps simulate a fast loan pre-screening workflow for banks and NBFCs. A
 
 ## 🗃️ Dataset Overview
 
-The dataset contains applicant-level records with demographic, financial, employment, and loan-related attributes. The target variable is loan approval status, stored as `Yes` or `No`.
+The dataset contains applicant-level records with demographic, financial, employment, and loan-related attributes. The target variable is loan approval status, stored as `Yes` or `No`
 
-The training pipeline handled missing values with standard imputation strategies and encoded categorical variables using label encoding for binary or ordinal fields and one-hot encoding for nominal fields.
+The training pipeline handled missing values with standard imputation strategies and encoded categorical variables using label encoding for binary or ordinal fields and one-hot encoding for nominal fields
 
 ## 🛠️ Feature Engineering
 
 The model pipeline uses engineered features to improve prediction quality:
 
 - `Applicant_Income_log` using `np.log1p`.
-- `Credit_Score_sq` to capture non-linear credit score effects.
-- `DTI_Ratio_sq` to capture non-linear debt burden effects.
+- `Credit_Score_sq` to capture non-linear credit score effects
+- `DTI_Ratio_sq` to capture non-linear debt burden effects
 
-The final input vector is reordered to match the saved training feature list before prediction.
+The final input vector is reordered to match the saved training feature list before prediction
 
 ## 🤖 Models
 
@@ -49,7 +49,7 @@ The notebook trains and evaluates four classification models on the same feature
 - Gaussian Naive Bayes
 - K-Nearest Neighbors
 
-Decision Tree is the strongest performer in the current pipeline and is a good default choice for the app.
+Decision Tree is the strongest performer in the current pipeline and is a good default choice for the app
 
 ## ⚙️ Tech Stack
 
